@@ -1,3 +1,22 @@
-<p>
-  etapa-ensino works!
-</p>
+<div class="col-md-6">
+  <h2> Etapas de Ensino</h2>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="hidden">Id</th>
+        <th>Nome</th>
+        <th>Vagas</th>
+        <th>Series</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let etapa of etapasEnsino">
+        <td class="hidden">{{escola.id}}</td>
+        <td>{{etapa.nome}}</td>
+        <td>{{etapa.vagasDisponives}}</td>
+        <td>{{etapa.tipoEtapaEnsino}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

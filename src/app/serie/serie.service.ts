@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Endereco } from '../models/endereco.model';
+import { Serie } from '../models/serie.model';
 
 
 const httpOptions = {
@@ -9,22 +9,22 @@ const httpOptions = {
 };
 
 @Injectable()
-export class EnderecoService {
+export class SerieService {
 
     constructor(private http: HttpClient) { }
 
-    private userUrl = 'http://localhost:8080/enderecos';
+    private userUrl = 'http://localhost:8080/series';
 
-    public getEnderecos() {
+    public getSeries() {
         return this.http.get(this.userUrl);
     }
 
-    public getEnderecobyId(id: number) {
+    public getSeriebyId(id) {
         return this.http.get(this.userUrl + "/" + id);
     }
 
-    public createEndereco(endereco: Endereco) {
-        return this.http.post(this.userUrl, endereco);
+    public createSerie(serie: Serie) {
+        return this.http.post(this.userUrl, serie);
     }
 
 }

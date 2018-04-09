@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { EtapaEnsino } from '../models/etapaEnsino.model';
+import { Router } from '@angular/router';
+import { EtapaEnsinoService } from './etapa-ensino.service';
 
 @Component({
   selector: 'app-etapa-ensino',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EtapaEnsinoComponent implements OnInit {
 
-  constructor() { }
+  etapasEnsino: EtapaEnsino[];
+
+  constructor(private router: Router, private etapaEnsinoService: EtapaEnsinoService) { }
 
   ngOnInit() {
+    this.etapaEnsinoService.getEtapasEnsino()
+      .subscribe((data: any) => {
+        this.etapasEnsino = data;
+      });
   }
+
 
 }

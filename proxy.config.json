@@ -1,5 +1,21 @@
 {
-    "/endereco/*": {
+    "/enderecos/*": {
+        "target": "http://localhost:8080/",
+        "secure": false
+    },
+    "/escolas/*": {
+        "target": "http://localhost:8080/",
+        "secure": false
+    },
+    "/etapasEnsino/*": {
+        "target": "http://localhost:8080/",
+        "secure": false
+    },
+    "/municipios/*": {
+        "target": "http://localhost:8080/",
+        "secure": false
+    },
+    "/series/*": {
         "target": "http://localhost:8080/",
         "secure": false
     }
