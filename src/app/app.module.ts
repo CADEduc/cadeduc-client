@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { NguiMapModule, NguiMap } from '@ngui/map';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module'
@@ -20,6 +21,7 @@ import { EscolaComponent } from './escola/escola.component';
 import { EtapaEnsinoComponent } from './etapa-ensino/etapa-ensino.component';
 import { MunicipioComponent } from './municipio/municipio.component';
 import { SerieComponent } from './serie/serie.component';
+import { GmapsComponent } from './gmaps/gmaps.component';
 
 
 
@@ -32,14 +34,20 @@ import { SerieComponent } from './serie/serie.component';
     EscolaComponent,
     EtapaEnsinoComponent,
     MunicipioComponent,
-    SerieComponent
+    SerieComponent,
+    GmapsComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NguiMapModule.forRoot(
+      {
+        apiUrl: 'https://maps.google.com/maps/api/js?key= AIzaSyCxPp3pYxUCqndMa7rBe7tdF7wph2B9jfE'
+      }
+    )
   ],
   providers: [
     EnderecoService, 
