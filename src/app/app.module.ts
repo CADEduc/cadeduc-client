@@ -45,7 +45,7 @@ import { GmapsComponent } from './gmaps/gmaps.component';
     FormsModule,
     NguiMapModule.forRoot(
       {
-        apiUrl: 'https://maps.google.com/maps/api/js?key= AIzaSyCxPp3pYxUCqndMa7rBe7tdF7wph2B9jfE'
+        apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyDsGP1c4zJ1T4qoSX--tiPx6KfjfFxoYRo'
       }
     )
   ],

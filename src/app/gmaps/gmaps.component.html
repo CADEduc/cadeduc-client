@@ -1,4 +1,32 @@
-<div>
-  <ngui-map center="Natal, Rio Grande do Norte, Brasil">
-  </ngui-map>
+<h1>Mapeamento</h1>
+<div id="floating-panel">
+  
+  <form #endereco="ngForm" (ngSubmit)="showDirection()">
+    <b>Seu endereço: </b>
+    <input type="text" [(ngModel)]="direction.origin" name="origin" required>
+    <b>Endereço destino: </b>
+    <input type="text" [(ngModel)]="direction.destination" name="destination" required>
+    <button type="submit"> Enviar </button>
+  </form>
+
+  
+  <select name="modoIda" [(ngModel)]="direction.travelMode" (ngModelChange)="showDirection()">
+    <option [ngValue]="'WALKING'">Andando</option>
+    <option [ngValue]="'DRIVING'">Dirigindo</option>
+  </select>
+
 </div>
+{{direction | json}}
+<form (ngSubmit)="calculateDistance()">
+  <button type="submit">Teste</button>
+</form>
+<div id="teste"></div>
+<ngui-map zoom="13" center="Natal, Rio Grande do Norte, Brasil">
+  <directions-renderer [suppressMarkers]="false" [draggable]="true" panel="#my-panel"  (directions_changed)="directionsChanged()"
+    [directions-request]="direction">
+  </directions-renderer>
+
+</ngui-map>
+
+
+<div id="my-panel"></div>
