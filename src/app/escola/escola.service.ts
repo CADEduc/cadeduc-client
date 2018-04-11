@@ -26,5 +26,4 @@ export class EscolaService {
     public createEscola(escola: Escola) {
         return this.http.post(this.userUrl, escola);
     }
-
 }

@@ -1,6 +1,6 @@
 import { Municipio } from './municipio.model';
 
-export interface Endereco {
+export class Endereco {
 
     id: number;
     logradouro: string;
@@ -12,4 +12,12 @@ export interface Endereco {
     longitude: number;
     tipoLocalizacao: string;
     municipio: Municipio;
+
+    getEndereco(): string {
+        return this.logradouro + ", " + 
+        this.numero + ", " + 
+        this.bairro + ", " + 
+        this.municipio.nome;
+    }
+
 }

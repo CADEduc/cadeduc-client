@@ -4,9 +4,10 @@
   <form #endereco="ngForm" (ngSubmit)="showDirection()">
     <b>Seu endereço: </b>
     <input type="text" [(ngModel)]="direction.origin" name="origin" required>
-    <b>Endereço destino: </b>
-    <input type="text" [(ngModel)]="direction.destination" name="destination" required>
+    <!--<b>Endereço destino: </b>
+    <input type="text" id="salvador" [(ngModel)]="direction.destination" name="destination"> -->
     <button type="submit"> Enviar </button>
+    <br/>
   </form>
 
   
@@ -16,11 +17,16 @@
   </select>
 
 </div>
-{{direction | json}}
+
+<!--{{direction | json}}-->
+
+
+
 <form (ngSubmit)="calculateDistance()">
-  <button type="submit">Teste</button>
+  <button type="submit">Sincronizar</button>
 </form>
-<div id="teste"></div>
+<div id="teste" style="display: none;"></div>
+<div id="salvador"></div>
 <ngui-map zoom="13" center="Natal, Rio Grande do Norte, Brasil">
   <directions-renderer [suppressMarkers]="false" [draggable]="true" panel="#my-panel"  (directions_changed)="directionsChanged()"
     [directions-request]="direction">
