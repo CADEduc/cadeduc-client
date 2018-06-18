@@ -1,38 +1,56 @@
-<h1>Mapeamento</h1>
-<div id="floating-panel">
-  
-  <form #endereco="ngForm" (ngSubmit)="showDirection()">
-    <b>Seu endereço: </b>
-    <input type="text" [(ngModel)]="direction.origin" name="origin" required>
-    <!--<b>Endereço destino: </b>
-    <input type="text" id="salvador" [(ngModel)]="direction.destination" name="destination"> -->
-    <button type="submit"> Enviar </button>
-    <br/>
-  </form>
+<div class="container">
+  <h1 align="center">Mapeamento</h1>
+  <div>
+    <form #endereco="ngForm" (ngSubmit)="showDirection()">
+      <b>Seu endereço: </b>
+      <input type="text" [(ngModel)]="direction.origin" name="origin" required size="85%">
+      <!--<b>Endereço destino: </b>
+      <input type="text" id="salvador" [(ngModel)]="direction.destination" name="destination"> -->
+      <button type="submit" class="btn btn-outline-primary"> Enviar </button>
+      <br/>
+    </form>
+  </div>
 
-  
-  <select name="modoIda" [(ngModel)]="direction.travelMode" (ngModelChange)="showDirection()">
-    <option [ngValue]="'WALKING'">Andando</option>
-    <option [ngValue]="'DRIVING'">Dirigindo</option>
-  </select>
+  <p>
+    <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+      aria-controls="collapse">
+      Exibir
+    </button>
+  </p>
+  <!--{{direction | json}}-->
+  <div id="collapse" [ngbCollapse]="isCollapsed">
+    <div class="card">
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <p>Modo de viagem:</p>
+              
+              <select name="modoIda" [(ngModel)]="direction.travelMode" (ngModelChange)="showDirection()">
+                <option [ngValue]="'WALKING'">Andando</option>
+                <option [ngValue]="'DRIVING'">Dirigindo</option>
+              </select>
+            </div>
+            <div class="col-sm">
+              <p>Etapas de ensino:</p>
+              <form (ngSubmit)="calculateDistance()">
+                <button type="submit" class="btn btn-outline-primary">Sincronizar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="teste" style="display: none;"></div>
+  <div id="salvador"></div>
+  <ngui-map zoom="13" center="Natal, Rio Grande do Norte, Brasil">
+    <directions-renderer [suppressMarkers]="true" [draggable]="true" panel="#my-panel"  (directions_changed)="directionsChanged()"
+      [directions-request]="direction">
+    </directions-renderer>
 
+  </ngui-map>
+
+
+  <div id="my-panel"></div>
 </div>
-
-<!--{{direction | json}}-->
-
-
-
-<form (ngSubmit)="calculateDistance()">
-  <button type="submit">Sincronizar</button>
-</form>
-<div id="teste" style="display: none;"></div>
-<div id="salvador"></div>
-<ngui-map zoom="13" center="Natal, Rio Grande do Norte, Brasil">
-  <directions-renderer [suppressMarkers]="false" [draggable]="true" panel="#my-panel"  (directions_changed)="directionsChanged()"
-    [directions-request]="direction">
-  </directions-renderer>
-
-</ngui-map>
-
-
-<div id="my-panel"></div>

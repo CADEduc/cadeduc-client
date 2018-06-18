@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { NguiMapModule, NguiMap } from '@ngui/map';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module'
@@ -43,6 +44,7 @@ import { GmapsComponent } from './gmaps/gmaps.component';
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    NgbModule.forRoot(),
     NguiMapModule.forRoot(
       {
         apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyA-2r8Q6vh6uoCsMPK8ZSfHxdJGtYbY2Ns'

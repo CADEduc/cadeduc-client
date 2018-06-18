@@ -14,6 +14,8 @@ export class GmapsComponent implements OnInit {
   
   @ViewChild(DirectionsRenderer) directionsRendererDirective: DirectionsRenderer;
 
+  public isCollapsed = true;
+
   directionsRenderer: google.maps.DirectionsRenderer;
   directionsResult: google.maps.DirectionsResult;
 

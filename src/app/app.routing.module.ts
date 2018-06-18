@@ -9,12 +9,7 @@ import { SerieComponent } from './serie/serie.component';
 import { GmapsComponent } from './gmaps/gmaps.component';
 
 const routes: Routes = [
-    { path: 'end', component: EnderecoComponent }, //listar endereços
-    { path: 'muni', component: MunicipioComponent }, //listar municipios
-    { path: 'esc', component: EscolaComponent }, //listar escolas
-    { path: 'etap', component: EtapaEnsinoComponent }, //listar etapas de ensino
-    { path: 'ser', component: SerieComponent }, //listar séries
-    { path: 'map', component: GmapsComponent }
+    { path: '', component: GmapsComponent }
 
 ];
 
