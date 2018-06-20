@@ -15,6 +15,7 @@ export class EscolaService {
 
     private userUrl = 'http://localhost:8080/escolas';
 
+
     public getEscolas() {
         return this.http.get(this.userUrl);
     }
@@ -27,7 +28,7 @@ export class EscolaService {
         return this.http.post(this.userUrl, escola);
     }
 
-    public getEscolasByLatLng(lat: any, lng: any):any {
+    public getEscolasByLatLng(lat: any, lng: any) {
        console.log(this.userUrl+"/endereco/"+lat+"/"+lng)
        return this.http.get(this.userUrl+"/endereco/"+lat+"/"+lng)
     }

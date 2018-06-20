@@ -20,7 +20,6 @@ export class GmapsComponent implements OnInit {
 
   directionsRenderer: google.maps.DirectionsRenderer;
   directionsResult: google.maps.DirectionsResult;
-
   myLocale: string;
   latlngEscolas: Observable<Object>;
 
@@ -82,28 +81,49 @@ export class GmapsComponent implements OnInit {
   }
   
   
-  getLatLng() {
-      let geo = new google.maps.Geocoder;
-      const service = this.escolaService
-  
-      geo.geocode({address: this.myLocale}, function(results, status) {
+  async getLatLng() {
+      var _lat;
+      var _lng;
+      const service = this.escolaService;
+      var geo = new google.maps.Geocoder;
+      var esolas: EscolaPlace[];
+
+      geo.geocode({ address: this.myLocale }, (async function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
-          let info;
+          var info;
           if (results[0]) {
             info = results[0].geometry.location;
-            console.log("Teste: " + info.lat() + " " + info.lng());
-            console.log(service.getEscolasByLatLng(info.lat(), info.lng()))
+            
+            //console.log(service.getEscolasByLatLng(info.lat(), info.lng()))
+            _lat = info.lat();
+            _lng = info.lng();
+            //console.log("Teste: " + _lat + " " + _lng);
           } else {
             window.alert('Local não encontrado');
           }
         } else {
           window.alert('Erro ao processar geocode: ' + status);
         }
-      });
-    }
-    //console.log(this.escolaService.getEscolasByLatLng(this.lat, this.lng).do);
+      }));
+
+      await this.sleep(1000);       
+     
+      this.lat = _lat;
+      this.lng = _lng;
+      
+      
+      console.log("Teste: " + this.lat + " " + this.lng);
+
+      esolas = service.getEscolasByLatLng(_lat, _lng);
+
+      console.log(esolas[0].latitude)
+
+  }
     
-   // console.log(this.escolasPlace.toString());
+    
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  } 
 
   calculate(response, status) {
       if (status !== google.maps.DistanceMatrixStatus.OK) {
