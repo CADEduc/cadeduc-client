@@ -3,7 +3,9 @@ import { DirectionsRenderer } from '@ngui/map';
 import { EscolaService } from '../escola/escola.service';
 import { Escola } from '../models/escola.model';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators'
 import { EscolaPlace } from '../models/escolaPlace.model';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -35,13 +37,14 @@ export class GmapsComponent implements OnInit {
     travelMode: 'WALKING'
   };
 
+
   escolas: Escola[];
 
-  escolasPlace: EscolaPlace[];
+  escolasPlace: any;
 
   to: string;
 
-  constructor(private cdr: ChangeDetectorRef, private escolaService: EscolaService) { 
+  constructor(private cdr: ChangeDetectorRef, private escolaService: EscolaService, private http: HttpClient) { 
     this.to = "";
 
   }
@@ -50,6 +53,14 @@ export class GmapsComponent implements OnInit {
     this.directionsRendererDirective['initialized$'].subscribe(directionsRenderer => {
       this.directionsRenderer = directionsRenderer;
     });
+
+    //this.escolaService.getEscolasByLatLng(-5.794482899999999, -35.21289660000002)
+    //.subscribe((data: any) => {
+    //  this.escolasPlace = data;
+    //  console.log(this.escolasPlace[0].nome)
+    //});
+
+    
 
     //this.escolaService.getEscolas()
     // .subscribe((data: any) => {
@@ -86,7 +97,8 @@ export class GmapsComponent implements OnInit {
       var _lng;
       const service = this.escolaService;
       var geo = new google.maps.Geocoder;
-      var esolas: EscolaPlace[];
+      var escolas: any;
+      const ht = this.http;
 
       geo.geocode({ address: this.myLocale }, (async function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
@@ -111,13 +123,15 @@ export class GmapsComponent implements OnInit {
       this.lat = _lat;
       this.lng = _lng;
       
+
       
       console.log("Teste: " + this.lat + " " + this.lng);
 
-      esolas = service.getEscolasByLatLng(_lat, _lng);
+      let url = "http://localhost:8080/escolas" + "/endereco/" + _lat + "/" + _lng
 
-      console.log(esolas[0].latitude)
+      let aux = ht.get(url);
 
+      await this.sleep(5000);
   }
     
     

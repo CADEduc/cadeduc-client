@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Escola } from '../models/escola.model';
+import { Observable } from 'rxjs';
+import { EscolaPlace } from '../models/escolaPlace.model';
 
 
 const httpOptions = {
@@ -28,8 +30,8 @@ export class EscolaService {
         return this.http.post(this.userUrl, escola);
     }
 
-    public getEscolasByLatLng(lat: any, lng: any) {
-       console.log(this.userUrl+"/endereco/"+lat+"/"+lng)
-       return this.http.get(this.userUrl+"/endereco/"+lat+"/"+lng)
+    public getEscolasByLatLng(lat: any, lng: any){
+       //console.log(this.userUrl+"/endereco/"+lat+"/"+lng);
+       return this.http.get(this.userUrl+"/endereco/"+lat+"/"+lng);
     }
 }
