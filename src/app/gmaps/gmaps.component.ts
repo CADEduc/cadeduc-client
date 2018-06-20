@@ -24,8 +24,8 @@ export class GmapsComponent implements OnInit {
   myLocale: string;
   latlngEscolas: Observable<Object>;
 
-  lat: number;
-  lng: number;
+  public lat: number;
+  public lng: number;
 
   teste: any;
 
@@ -83,26 +83,27 @@ export class GmapsComponent implements OnInit {
   
   
   getLatLng() {
-    let geo = new google.maps.Geocoder;
-
-    geo.geocode({ address: this.myLocale }, (this.respostas));
-
-    console.log(this.escolaService.getEscolasByLatLng(this.lat, this.lng).do);
+      let geo = new google.maps.Geocoder;
+      const service = this.escolaService
+  
+      geo.geocode({address: this.myLocale}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          let info;
+          if (results[0]) {
+            info = results[0].geometry.location;
+            console.log("Teste: " + info.lat() + " " + info.lng());
+            console.log(service.getEscolasByLatLng(info.lat(), info.lng()))
+          } else {
+            window.alert('Local não encontrado');
+          }
+        } else {
+          window.alert('Erro ao processar geocode: ' + status);
+        }
+      });
+    }
+    //console.log(this.escolaService.getEscolasByLatLng(this.lat, this.lng).do);
     
    // console.log(this.escolasPlace.toString());
-  }
-
-  respostas(results, status) {
-    let info = results.pop().geometry.location;
-    console.log("Teste: " + info.lat() + " " + info.lng());
-    this.lat = info.lat();
-    this.lng = info.lng();
-
-    //this.escolaService.getEscolasByLatLng(this.lat, this.lng).toArray.toString()
-    
-    //console.log(this.escolaService.getEscolasByLatLng(this.lat, this.lng).toArray.toString())
-  }
-
 
   calculate(response, status) {
       if (status !== google.maps.DistanceMatrixStatus.OK) {
