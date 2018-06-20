@@ -1,9 +1,9 @@
 <div class="container">
   <h1 align="center">Mapeamento</h1>
   <div>
-    <form #endereco="ngForm" (ngSubmit)="showDirection()">
+    <form #endereco="ngForm" (ngSubmit)="getLatLng()">
       <b>Seu endereço: </b>
-      <input type="text" [(ngModel)]="direction.origin" name="origin" required size="85%">
+      <input type="text" [(ngModel)]="myLocale" name="origin" required size="85%">
       <!--<b>Endereço destino: </b>
       <input type="text" id="salvador" [(ngModel)]="direction.destination" name="destination"> -->
       <button type="submit" class="btn btn-outline-primary"> Enviar </button>
@@ -12,12 +12,12 @@
   </div>
 
   <p>
-    <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+    <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
       aria-controls="collapse">
       Exibir
     </button>
   </p>
-  <!--{{direction | json}}-->
+  <!--{{teste | json}}-->
   <div id="collapse" [ngbCollapse]="isCollapsed">
     <div class="card">
       <div class="card-body">

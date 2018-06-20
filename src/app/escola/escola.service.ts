@@ -26,4 +26,8 @@ export class EscolaService {
     public createEscola(escola: Escola) {
         return this.http.post(this.userUrl, escola);
     }
+
+    public getEscolasByLatLng(lat: number, lng: number) {
+        return this.http.get(this.userUrl+"/endereco/"+lat+"/"+lng)
+    }
 }

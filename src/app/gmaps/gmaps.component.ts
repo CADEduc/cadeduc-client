@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DirectionsRenderer } from '@ngui/map';
 import { EscolaService } from '../escola/escola.service';
 import { Escola } from '../models/escola.model';
+import { Observable } from 'rxjs';
+import { EscolaPlace } from '../models/escolaPlace.model';
 
 
 @Component({
@@ -19,6 +21,14 @@ export class GmapsComponent implements OnInit {
   directionsRenderer: google.maps.DirectionsRenderer;
   directionsResult: google.maps.DirectionsResult;
 
+  myLocale: string;
+  latlngEscolas: Observable<Object>;
+
+  lat: number;
+  lng: number;
+
+  teste: any;
+
   direction: any  = {
 
     origin: '',
@@ -27,6 +37,8 @@ export class GmapsComponent implements OnInit {
   };
 
   escolas: Escola[];
+
+  escolasPlace: EscolaPlace[];
 
   to: string;
 
@@ -40,10 +52,10 @@ export class GmapsComponent implements OnInit {
       this.directionsRenderer = directionsRenderer;
     });
 
-    this.escolaService.getEscolas()
-      .subscribe((data: any) => {
-        this.escolas = data;
-      });
+    //this.escolaService.getEscolas()
+    // .subscribe((data: any) => {
+    //    this.escolas = data;
+    //  });
   }
 
   directionsChanged() {
@@ -68,7 +80,30 @@ export class GmapsComponent implements OnInit {
     }, this.calculate)
     
   }
-   
+  
+  
+  getLatLng() {
+    let geo = new google.maps.Geocoder;
+
+    geo.geocode({ address: this.myLocale }, (this.respostas));
+
+    console.log(this.escolaService.getEscolasByLatLng(this.lat, this.lng).do);
+    
+   // console.log(this.escolasPlace.toString());
+  }
+
+  respostas(results, status) {
+    let info = results.pop().geometry.location;
+    console.log("Teste: " + info.lat() + " " + info.lng());
+    this.lat = info.lat();
+    this.lng = info.lng();
+
+    //this.escolaService.getEscolasByLatLng(this.lat, this.lng).toArray.toString()
+    
+    //console.log(this.escolaService.getEscolasByLatLng(this.lat, this.lng).toArray.toString())
+  }
+
+
   calculate(response, status) {
       if (status !== google.maps.DistanceMatrixStatus.OK) {
         alert('Error was: ' + status);

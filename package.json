@@ -24,7 +24,7 @@
     "@angular/router": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "^2.1.1",
     "@ngui/map": "^0.20.2",
-    "@types/googlemaps": "^3.30.8",
+    "@types/googlemaps": "^3.30.10",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
