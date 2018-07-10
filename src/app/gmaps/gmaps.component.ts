@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { EscolaPlace } from '../models/escolaPlace.model';
 import { HttpClient } from '@angular/common/http';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-gmaps',
@@ -32,8 +32,8 @@ export class GmapsComponent implements OnInit {
 
   direction: any  = {
 
-    origin: '',
-    destination: '',
+    origin: String,
+    destination: String,
     travelMode: 'WALKING'
   };
 
@@ -73,10 +73,20 @@ export class GmapsComponent implements OnInit {
     this.cdr.detectChanges();  
   }
 
-  showDirection() {
-    this.calculateDistance();
-    this.direction.destination = document.getElementById('teste').innerHTML;
-    this.directionsRendererDirective.showDirections(this.direction);
+  showDirection(direcao) {
+    //this.calculateDistance();
+    //this.direction.destination = document.getElementById('teste').innerHTML;
+    this.directionsRendererDirective.showDirections(direcao);
+    /*
+    let directService = new google.maps.DirectionsService();
+    console.log(direcao)
+      directService.route(direcao, 
+        async function(retorno, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        this.directionsRendererDirective.setDirections(retorno);
+      }
+    });
+    //*/
   }
 
   
@@ -123,17 +133,28 @@ export class GmapsComponent implements OnInit {
       this.lat = _lat;
       this.lng = _lng;
       
-
-      
       console.log("Teste: " + this.lat + " " + this.lng);
 
       let url = "http://localhost:8080/escolas" + "/endereco/" + _lat + "/" + _lng
 
-      let aux = ht.get(url);
+      return this.buscar(url);
 
-      await this.sleep(5000);
+      
   }
     
+  buscar(url){
+    
+    let aux = this.http.get(url).
+      subscribe(
+      (data: String) => {
+      this.direction.origin = this.myLocale
+      this.direction.destination = data[0]['logradouro']
+  
+      return this.showDirection(this.direction)
+      },
+      error => console.log(error) // error path
+    );
+  }
     
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

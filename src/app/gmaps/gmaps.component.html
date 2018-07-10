@@ -33,9 +33,10 @@
             </div>
             <div class="col-sm">
               <p>Etapas de ensino:</p>
-              <form (ngSubmit)="calculateDistance()">
-                <button type="submit" class="btn btn-outline-primary">Sincronizar</button>
-              </form>
+              <select>
+                <option >Ensino médio</option>
+                <option >Ensino Fundamental</option>
+              </select>
             </div>
           </div>
         </div>
@@ -45,7 +46,7 @@
   <div id="teste" style="display: none;"></div>
   <div id="salvador"></div>
   <ngui-map zoom="13" center="Natal, Rio Grande do Norte, Brasil">
-    <directions-renderer [suppressMarkers]="true" [draggable]="true" panel="#my-panel"  (directions_changed)="directionsChanged()"
+    <directions-renderer [suppressMarkers]="false" [draggable]="true" panel="#my-panel"  (directions_changed)="directionsChanged()"
       [directions-request]="direction">
     </directions-renderer>
 
